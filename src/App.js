@@ -1,24 +1,47 @@
-import './App.css';
+import { Route, Switch } from 'react-router';
+import { lazy, Suspense } from 'react';
+import AppBar from './Components/AppBar/AppBar';
+import { css } from '@emotion/react';
+import CircleLoader from 'react-spinners/CircleLoader';
 
-function App() {
+const HomePage = lazy(() => import('./Components/HomePage/HomePage.js'));
+const MoviesPage = lazy(() => import('./Components/MoviesPage/MoviesPage.js'));
+const MovieDetailsPage = lazy(() =>
+  import('./Components/MovieDetailsPage/MovieDetailsPage.js'),
+);
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: green;
+`;
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="" className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppBar />
+      <Suspense
+        fallback={
+          <CircleLoader
+            color={'rgba(34, 139, 34, 0.452)'}
+            loading={true}
+            css={override}
+            size={60}
+          />
+        }
+      >
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+          <Route path="/movies" exact>
+            <MoviesPage />
+          </Route>
+          <Route path="/movies/:movieId">
+            <MovieDetailsPage />
+          </Route>
+        </Switch>
+      </Suspense>
+    </>
   );
 }
-
-export default App;
