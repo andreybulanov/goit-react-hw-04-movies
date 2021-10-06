@@ -7,7 +7,6 @@
   color: black;
 }
 
-.activLink {
-  composes: link;
+.activeLink {
   color: blue;
 }
