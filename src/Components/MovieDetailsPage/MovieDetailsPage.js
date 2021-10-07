@@ -51,10 +51,7 @@ export default function MovieDetailsPage() {
         />
       )}
       <div className={s.wrapper}>
-        {movie !== {} && (
-          <MovieInfo movie={movie} moviesLocation={location.state.from} />
-        )}
-
+        {movie !== {} && <MovieInfo movie={movie} />}
         <Route path="/movies/:movieId/cast">
           <MovieCast id={movieId} />
         </Route>
